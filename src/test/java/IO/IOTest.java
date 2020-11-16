@@ -9,7 +9,7 @@ public class IOTest {
 
     @Test
     public void toZipTest(){
-        IOUtils.compressToZip("D:\\IdeaProjects\\JavaGo\\src\\main\\resources",null);
+        IOUtils.compressToZip("D:\\IdeaProjects\\JavaGo\\src\\main\\resources","D:\\IdeaProjects");
     }
     @Test
     public void decompressTest(){

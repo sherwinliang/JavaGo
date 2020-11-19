@@ -1,5 +1,3 @@
-package IO;
-
 import org.junit.Test;
 
 import java.io.File;
@@ -9,15 +7,15 @@ public class IOTest {
 
     @Test
     public void toZipTest(){
-        IOUtils.compressToZip("D:\\IdeaProjects\\JavaGo\\src\\main\\resources","D:\\IdeaProjects");
+        IO.IOUtils.compressToZip("D:\\IdeaProjects\\JavaGo\\src\\main\\resources","D:\\IdeaProjects");
     }
     @Test
     public void decompressTest(){
-        IOUtils.decompressZip("D:\\IdeaProjects\\JavaGo\\src\\main\\resources.zip","D:\\IdeaProjects");
+        IO.IOUtils.decompressZip("D:\\IdeaProjects\\JavaGo\\src\\main\\resources.zip","D:\\IdeaProjects");
     }
     @Test
     public void copyTest(){
-        IOUtils.copy("D:\\IdeaProjects\\JavaGo\\src\\main\\resources","D:\\IdeaProjects");
+        IO.IOUtils.copy("D:\\IdeaProjects\\JavaGo\\src\\main\\resources","D:\\IdeaProjects");
     }
     @Test
     public void test() throws IOException {

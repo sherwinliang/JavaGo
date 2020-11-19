@@ -10,7 +10,7 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 public class IOUtils {
-    private static final Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
+    private static final Logger logger = LogManager.getLogger(IOUtils.class);
     /* @description: This method can compress a directory to a zip file under the designated path.
                         Notice that if designated path is null, the directory will be compressed to the same path as itself.
      * @author: Sherwin Liang

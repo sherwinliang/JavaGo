@@ -13,6 +13,7 @@
         <log4j.version>2.5</log4j.version>
         <fastjson.version>1.2.75</fastjson.version>
         <springframework.version>5.3.1</springframework.version>
+        <netty.version>4.1.53.Final</netty.version>
     </properties>
 
     <dependencies>
@@ -40,6 +41,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>${netty.version}</version>
         </dependency>
     </dependencies>
 

@@ -7,15 +7,15 @@ public class IOTest {
 
     @Test
     public void toZipTest(){
-        IO.IOUtils.compressToZip("D:\\IdeaProjects\\JavaGo\\src\\main\\resources","D:\\IdeaProjects");
+        io.IOUtils.compressToZip("D:\\IdeaProjects\\JavaGo\\src\\main\\resources","D:\\IdeaProjects");
     }
     @Test
     public void decompressTest(){
-        IO.IOUtils.decompressZip("D:\\IdeaProjects\\JavaGo\\src\\main\\resources.zip","D:\\IdeaProjects");
+        io.IOUtils.decompressZip("D:\\IdeaProjects\\JavaGo\\src\\main\\resources.zip","D:\\IdeaProjects");
     }
     @Test
     public void copyTest(){
-        IO.IOUtils.copy("D:\\IdeaProjects\\JavaGo\\src\\main\\resources","D:\\IdeaProjects");
+        io.IOUtils.copy("D:\\IdeaProjects\\JavaGo\\src\\main\\resources","D:\\IdeaProjects");
     }
     @Test
     public void test() throws IOException {

@@ -1,15 +1,17 @@
-package IO;
+package io;
 
 import com.sun.istack.internal.NotNull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
+import java.nio.channels.FileChannel;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 public class IOUtils {
+    private static final long bufSize = 131072;
     private static final Logger logger = LogManager.getLogger(IOUtils.class);
     /* @description: This method can compress a directory to a zip file under the designated path.
                         Notice that if designated path is null, the directory will be compressed to the same path as itself.
@@ -117,11 +119,11 @@ public class IOUtils {
         if(!destPath.endsWith(File.separator)){
             destPath+=File.separator;
         }
-        copySource(sourceFile, destPath+sourceFile.getName());
+        recursiveCopy(sourceFile, destPath+sourceFile.getName());
 
     }
 
-    private static void copySource(File sourceFile, String basePath) {
+    private static void recursiveCopy(File sourceFile, String basePath) {
         File[] files = sourceFile.listFiles();
         File tempFile = new File(basePath);
         byte[] buf = new byte[64];
@@ -144,9 +146,59 @@ public class IOUtils {
             }
         }else{
             for(File file:files){
-                copySource(file, basePath+File.separator+file.getName());
+                recursiveCopy(file, basePath+File.separator+file.getName());
             }
         }
+    }
+
+    private static void recursiveCopyByChannel(File sourceFile, String destPath){
+        File[] subFiles = sourceFile.listFiles();
+        if(subFiles!=null && subFiles.length>0){
+            for(File tmpFile:subFiles){
+                recursiveCopyByChannel(tmpFile,destPath+File.separator+tmpFile.getName());
+            }
+        }else{
+            File destFile = new File(destPath);
+            if(sourceFile.isDirectory()){
+                if(!destFile.exists()){
+                    destFile.mkdirs();
+                }
+            }else{
+                if(!destFile.getParentFile().exists()){
+                    destFile.getParentFile().mkdirs();
+                }
+                try(FileInputStream fin = new FileInputStream(sourceFile);
+                    FileOutputStream fout = new FileOutputStream(destPath);
+                    FileChannel inChannel = fin.getChannel();
+                    FileChannel outChannel = fout.getChannel()){
+                    while(true){
+                        long length = bufSize;
+                        if((inChannel.size()-inChannel.position())<bufSize){
+                            length = inChannel.size()-inChannel.position();
+                        }
+                        inChannel.transferTo(inChannel.position(), length, outChannel);
+                        inChannel.position(inChannel.position()+length);
+                        if(inChannel.position()>=inChannel.size()){
+                            inChannel.position(inChannel.size());
+                            break;
+                        }
+                    }
+                }catch (Exception e){
+                    logger.error(e.getMessage());
+                }
+            }
+        }
+    }
+
+    private static void copyByChannel(String source, String target){
+        File sourceFile = new File(source);
+        if(!sourceFile.exists()){
+            return;
+        }
+        if(target!=null && !target.endsWith(File.separator)){
+            target+=File.separator;
+        }
+        recursiveCopyByChannel(sourceFile,target+sourceFile.getName());
     }
 
     private static void compress(ZipOutputStream zos, File file, String basePath){

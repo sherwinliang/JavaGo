@@ -17,4 +17,13 @@ public class DesignModeTest {
         CglibProxyFactory cglibProxyFactory = new CglibProxyFactory(userDao);
         ((UserDao)cglibProxyFactory.getProxyInstance()).save(user);
     }
+    @Test
+    public void singletonByEnum(){
+        SingletonByEnum.INSTANCE.doSometing();
+    }
+    @Test
+    public void factoryModeTest(){
+        JobFactory jobFactory = new EngineerFactory();
+        jobFactory.getJob("Programmer").doJob();
+    }
 }

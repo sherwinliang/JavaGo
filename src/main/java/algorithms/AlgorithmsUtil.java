@@ -133,7 +133,7 @@ public class AlgorithmsUtil {
         }
         return false;
     }
-    /* @description: 希尔排序，分辨率越低数组约有序
+    /* @description: 希尔排序，分辨率越低数组越有序
      * @author: Sherwin Liang
      * @timestamp: 2021/10/7 11:31
     */

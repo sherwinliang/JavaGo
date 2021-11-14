@@ -3,9 +3,11 @@ package data;
 import common.User;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -68,8 +70,26 @@ public class DataProcessing {
                 .collect(Collectors.toList());
         return list;
     }
+    /* @description: 对集合中的数据进行分组，例如根据资金变动的类型来分组
+     * @author: Sherwin Liang
+     * @timestamp: 2021/11/5 23:10
+     * @param: capitalChanges 需分组的数据
+     * @return: Map<String, List<CapitalChange>> 分组结果
+     */
+    public static Map<String, List<CapitalChange>> groupCapitalChanges(List<CapitalChange> capitalChanges){
+        return capitalChanges.stream().collect(Collectors.groupingBy(c->c.getChangeType()));
+    }
 
     public static void main(String... args){
+        List<CapitalChange> capitalChanges = Stream.of(new CapitalChange("1",new Date(),"IA1", BigDecimal.TEN,"OA1",BigDecimal.TEN),
+                new CapitalChange("2",new Date(),"IA1", BigDecimal.TEN,"OA1",BigDecimal.TEN),
+                new CapitalChange("3",new Date(),"IA2", BigDecimal.TEN,"OA2",BigDecimal.TEN),
+                new CapitalChange("3",new Date(),"IA1", BigDecimal.TEN,"OA1",BigDecimal.TEN),
+                new CapitalChange("3",new Date(),"IA3", BigDecimal.TEN,"OA3",BigDecimal.TEN),
+                new CapitalChange("1",new Date(),"IA1", BigDecimal.TEN,"OA1",BigDecimal.TEN))
+                .collect(Collectors.toList());
+        Map<String, List<CapitalChange>> group = groupCapitalChanges(capitalChanges);
+
         filterUser("10.13.113").forEach((k,v)->System.out.println(k));
         System.out.println(countCharacterInFile("D:\\IdeaProjects\\JavaGo\\src\\main\\resources\\test.txt",'a'));
         sortUserList(userList, new Comparator<User>() {

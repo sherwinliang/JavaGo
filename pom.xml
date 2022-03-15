@@ -7,13 +7,26 @@
     <groupId>com.sherwin</groupId>
     <artifactId>JavaGo</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <properties>
         <junit.version>4.10</junit.version>
-        <log4j.version>2.5</log4j.version>
+        <log4j.version>2.17.1</log4j.version>
         <fastjson.version>1.2.75</fastjson.version>
         <springframework.version>5.3.1</springframework.version>
         <netty.version>4.1.53.Final</netty.version>
+        <poi.version>5.2.1</poi.version>
     </properties>
 
     <dependencies>
@@ -46,6 +59,16 @@
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
             <version>${netty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
         </dependency>
     </dependencies>
 
